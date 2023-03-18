@@ -64,6 +64,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
@@ -82,6 +83,7 @@ unMock {
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
     api("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
     api("androidx.core:core-ktx:1.9.0@aar")

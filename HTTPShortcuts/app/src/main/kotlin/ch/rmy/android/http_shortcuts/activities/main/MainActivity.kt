@@ -41,6 +41,7 @@ import ch.rmy.android.http_shortcuts.extensions.applyTheme
 import ch.rmy.android.http_shortcuts.utils.ActivityCloser
 import ch.rmy.android.http_shortcuts.widget.WidgetManager
 import com.google.android.material.appbar.AppBarLayout
+import java.time.Instant
 
 class MainActivity : BaseActivity(), Entrypoint {
 

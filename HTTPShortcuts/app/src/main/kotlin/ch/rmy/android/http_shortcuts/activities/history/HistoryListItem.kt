@@ -3,13 +3,13 @@ package ch.rmy.android.http_shortcuts.activities.history
 import ch.rmy.android.framework.utils.localization.Localizable
 import ch.rmy.android.framework.utils.localization.StringResLocalizable
 import ch.rmy.android.http_shortcuts.R
-import java.util.Date
+import java.time.Instant
 
 sealed interface HistoryListItem {
 
     data class HistoryEvent(
         val id: String,
-        val time: Date,
+        val time: Instant,
         val title: Localizable,
         val detail: Localizable?,
         val displayType: DisplayType?,

@@ -182,6 +182,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
 
     sourceSets.getByName("main") {
@@ -232,6 +233,7 @@ bugsnag {
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
     implementation(project(path = ":framework"))
 
     /* Dependency Injection */
