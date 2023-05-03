@@ -13,10 +13,6 @@ import ch.rmy.android.framework.utils.DragOrderingHelper
 import ch.rmy.android.framework.viewmodel.ViewModelEvent
 import ch.rmy.android.http_shortcuts.R
 import ch.rmy.android.http_shortcuts.activities.BaseFragment
-import ch.rmy.android.http_shortcuts.activities.variables.editor.VariableEditorActivity
-import ch.rmy.android.http_shortcuts.activities.variables.editor.VariableEditorViewModel
-import ch.rmy.android.http_shortcuts.activities.variables.editor.VariableTypeToVariableEditorEvent
-import ch.rmy.android.http_shortcuts.activities.variables.editor.types.WithValidation
 import ch.rmy.android.http_shortcuts.dagger.ApplicationComponent
 import ch.rmy.android.http_shortcuts.databinding.ToggleOptionEditorItemBinding
 import ch.rmy.android.http_shortcuts.databinding.VariableEditorToggleBinding
@@ -26,7 +22,7 @@ import ch.rmy.android.http_shortcuts.utils.DialogBuilder
 import ch.rmy.android.http_shortcuts.variables.VariableViewUtils
 import javax.inject.Inject
 
-class ToggleTypeFragment : BaseFragment<VariableEditorToggleBinding>(), WithValidation {
+class ToggleTypeFragment : BaseFragment<VariableEditorToggleBinding>() {
 
     @Inject
     lateinit var variableViewUtils: VariableViewUtils
@@ -38,9 +34,6 @@ class ToggleTypeFragment : BaseFragment<VariableEditorToggleBinding>(), WithVali
     lateinit var activityProvider: ActivityProvider
 
     private val viewModel: ToggleTypeViewModel by bindViewModel()
-
-    private val parentViewModel: VariableEditorViewModel
-        get() = (requireActivity() as VariableEditorActivity).viewModel
 
     private var isDraggingEnabled = false
 
@@ -108,7 +101,6 @@ class ToggleTypeFragment : BaseFragment<VariableEditorToggleBinding>(), WithVali
         when (event) {
             is ToggleTypeEvent.ShowAddDialog -> showAddDialog()
             is ToggleTypeEvent.ShowEditDialog -> showEditDialog(event.optionId, event.value)
-            is VariableTypeToVariableEditorEvent.Validated -> parentViewModel.onValidated(event.valid)
             else -> super.handleEvent(event)
         }
     }
@@ -141,9 +133,5 @@ class ToggleTypeFragment : BaseFragment<VariableEditorToggleBinding>(), WithVali
                 viewModel.onDeleteOptionSelected(optionId)
             }
             .showIfPossible()
-    }
-
-    override fun validate() {
-        viewModel.onValidationEvent()
     }
 }

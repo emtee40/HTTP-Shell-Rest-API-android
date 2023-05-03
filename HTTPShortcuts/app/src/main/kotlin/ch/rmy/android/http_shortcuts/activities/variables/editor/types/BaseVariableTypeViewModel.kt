@@ -3,7 +3,6 @@ package ch.rmy.android.http_shortcuts.activities.variables.editor.types
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import ch.rmy.android.framework.viewmodel.BaseViewModel
-import ch.rmy.android.http_shortcuts.activities.variables.editor.VariableTypeToVariableEditorEvent
 import ch.rmy.android.http_shortcuts.data.domains.variables.TemporaryVariableRepository
 import ch.rmy.android.http_shortcuts.data.models.Variable
 import kotlinx.coroutines.launch
@@ -42,7 +41,7 @@ abstract class BaseVariableTypeViewModel<InitData : Any, ViewState : Any>(applic
     }
 
     private fun sendValidationResult(valid: Boolean) {
-        emitEvent(VariableTypeToVariableEditorEvent.Validated(valid))
+        // emitEvent(VariableTypeToVariableEditorEvent.Validated(valid))
     }
 
     protected open fun validate(): Boolean =
