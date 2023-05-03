@@ -8,6 +8,8 @@ import ch.rmy.android.http_shortcuts.activities.variables.editor.types.ConstantT
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.ConstantTypeViewState
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.DateTypeEditor
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.DateTypeViewState
+import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TextTypeEditor
+import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TextTypeViewState
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TimeTypeEditor
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TimeTypeViewState
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.VariableTypeViewState
@@ -21,6 +23,7 @@ fun ColumnScope.VariableTypeSpecificContent(
         is ColorTypeViewState -> ColorTypeEditor(viewState, onViewStateChanged)
         is ConstantTypeViewState -> ConstantTypeEditor(viewState, onViewStateChanged)
         is DateTypeViewState -> DateTypeEditor(viewState, onViewStateChanged)
+        is TextTypeViewState -> TextTypeEditor(viewState, onViewStateChanged)
         is TimeTypeViewState -> TimeTypeEditor(viewState, onViewStateChanged)
         else -> Unit
     }

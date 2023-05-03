@@ -12,6 +12,7 @@ import ch.rmy.android.http_shortcuts.activities.variables.editor.types.BaseTypeV
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.ColorTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.ConstantTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.DateTypeViewModel
+import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TextTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TimeTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.VariableTypeViewState
 import ch.rmy.android.http_shortcuts.dagger.getApplicationComponent
@@ -71,6 +72,10 @@ class VariableEditorViewModel(
             VariableType.COLOR -> ColorTypeViewModel()
             VariableType.CONSTANT -> ConstantTypeViewModel()
             VariableType.DATE -> DateTypeViewModel()
+            VariableType.NUMBER,
+            VariableType.PASSWORD,
+            VariableType.TEXT,
+            -> TextTypeViewModel()
             VariableType.TIME -> TimeTypeViewModel()
             else -> null
         }
