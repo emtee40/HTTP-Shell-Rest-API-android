@@ -74,4 +74,3 @@ fun ScreenScope.VariableEditorScreen(
         onDismissed = viewModel::onDismissDialog,
     )
 }
-

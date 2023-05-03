@@ -43,12 +43,12 @@ import ch.rmy.android.http_shortcuts.activities.settings.SettingsViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.VariablesViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.VariableEditorViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.ConstantTypeViewModel
-import ch.rmy.android.http_shortcuts.activities.variables.editor.types.date.DateTypeViewModel
+import ch.rmy.android.http_shortcuts.activities.variables.editor.types.DateTypeViewModel
+import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TimeTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.select.SelectTypeFragment
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.select.SelectTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.slider.SliderTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.text.TextTypeViewModel
-import ch.rmy.android.http_shortcuts.activities.variables.editor.types.time.TimeTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.toggle.ToggleTypeFragment
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.toggle.ToggleTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.widget.WidgetSettingsViewModel

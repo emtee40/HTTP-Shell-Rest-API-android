@@ -1,12 +1,10 @@
 package ch.rmy.android.http_shortcuts.activities.variables.editor
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -22,11 +20,9 @@ import ch.rmy.android.framework.extensions.consume
 import ch.rmy.android.framework.utils.localization.Localizable
 import ch.rmy.android.http_shortcuts.R
 import ch.rmy.android.http_shortcuts.activities.variables.editor.models.ShareSupport
-import ch.rmy.android.http_shortcuts.components.HelpText
 import ch.rmy.android.http_shortcuts.components.ScreenScope
 import ch.rmy.android.http_shortcuts.components.SelectionField
 import ch.rmy.android.http_shortcuts.components.Spacing
-import ch.rmy.android.http_shortcuts.data.enums.CategoryLayoutType
 import ch.rmy.android.http_shortcuts.extensions.localize
 import com.alorma.compose.settings.storage.base.rememberBooleanSettingState
 import com.alorma.compose.settings.ui.SettingsCheckbox
@@ -52,11 +48,11 @@ fun ScreenScope.VariableEditorContent(
     onJsonEncodeChanged: (Boolean) -> Unit,
     onAllowShareChanged: (Boolean) -> Unit,
     onShareSupportChanged: (ShareSupport) -> Unit,
-    typeSpecificContent: @Composable () -> Unit,
+    typeSpecificContent: @Composable ColumnScope.() -> Unit,
 ) {
     Column(
         modifier = Modifier
-            .padding(Spacing.MEDIUM)
+            .padding(vertical = Spacing.MEDIUM)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(Spacing.SMALL),
     ) {
@@ -150,6 +146,7 @@ private fun ScreenScope.VariableKey(
     TextField(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = Spacing.MEDIUM)
             .focusRequester(focusRequester),
         label = {
             Text(stringResource(R.string.label_variable_name))
@@ -172,6 +169,7 @@ private fun ScreenScope.VariableKey(
 private fun DialogTitle(title: String, onTitleChanged: (String) -> Unit) {
     TextField(
         modifier = Modifier
+            .padding(horizontal = Spacing.MEDIUM)
             .fillMaxWidth(),
         label = {
             Text(stringResource(R.string.label_variable_title))
@@ -188,6 +186,7 @@ private fun DialogTitle(title: String, onTitleChanged: (String) -> Unit) {
 private fun DialogMessage(message: String, onMessageChanged: (String) -> Unit) {
     TextField(
         modifier = Modifier
+            .padding(horizontal = Spacing.MEDIUM)
             .fillMaxWidth(),
         label = {
             Text(stringResource(R.string.label_variable_text))

@@ -9,9 +9,11 @@ import ch.rmy.android.framework.viewmodel.BaseViewModel
 import ch.rmy.android.http_shortcuts.R
 import ch.rmy.android.http_shortcuts.activities.variables.editor.models.ShareSupport
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.BaseTypeViewModel
-import ch.rmy.android.http_shortcuts.activities.variables.editor.types.VariableTypeViewState
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.ColorTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.ConstantTypeViewModel
+import ch.rmy.android.http_shortcuts.activities.variables.editor.types.DateTypeViewModel
+import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TimeTypeViewModel
+import ch.rmy.android.http_shortcuts.activities.variables.editor.types.VariableTypeViewState
 import ch.rmy.android.http_shortcuts.dagger.getApplicationComponent
 import ch.rmy.android.http_shortcuts.data.domains.variables.TemporaryVariableRepository
 import ch.rmy.android.http_shortcuts.data.domains.variables.VariableId
@@ -68,6 +70,8 @@ class VariableEditorViewModel(
         typeViewModel = when (data.variableType) {
             VariableType.COLOR -> ColorTypeViewModel()
             VariableType.CONSTANT -> ConstantTypeViewModel()
+            VariableType.DATE -> DateTypeViewModel()
+            VariableType.TIME -> TimeTypeViewModel()
             else -> null
         }
         viewModelScope.launch {
@@ -169,7 +173,8 @@ class VariableEditorViewModel(
     }
 
     private fun validate(): Boolean {
-        val variableKey = currentViewState?.variableKey ?: return false
+        val viewState = currentViewState ?: return false
+        val variableKey = viewState.variableKey
         if (variableKey.isEmpty()) {
             variableKeyInputErrorRes = R.string.validation_key_non_empty
             return false
@@ -182,7 +187,9 @@ class VariableEditorViewModel(
             variableKeyInputErrorRes = R.string.validation_key_already_exists
             return false
         }
-        val newTypeViewState = typeViewModel?.validate()
+        val newTypeViewState = viewState.variableTypeViewState?.let {
+            typeViewModel?.validate(it)
+        }
         if (newTypeViewState != null) {
             updateViewState {
                 copy(variableTypeViewState = newTypeViewState)

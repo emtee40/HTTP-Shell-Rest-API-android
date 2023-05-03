@@ -6,7 +6,7 @@ import ch.rmy.android.http_shortcuts.data.models.Variable
 abstract class BaseTypeViewModel {
 
     abstract fun createViewState(variable: Variable): VariableTypeViewState
-    open fun validate(): VariableTypeViewState? = null
+    open fun validate(viewState: VariableTypeViewState): VariableTypeViewState? = null
     abstract suspend fun save(
         temporaryVariableRepository: TemporaryVariableRepository,
         viewState: VariableTypeViewState,

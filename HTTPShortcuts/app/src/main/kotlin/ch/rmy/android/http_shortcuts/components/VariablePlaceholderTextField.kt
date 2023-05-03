@@ -1,19 +1,14 @@
 package ch.rmy.android.http_shortcuts.components
 
 import android.app.Application
-import android.util.Log
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DataObject
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,11 +18,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.buildAnnotatedString
@@ -43,9 +35,7 @@ import ch.rmy.android.http_shortcuts.R
 import ch.rmy.android.http_shortcuts.dagger.getApplicationComponent
 import ch.rmy.android.http_shortcuts.data.domains.variables.VariableRepository
 import ch.rmy.android.http_shortcuts.data.dtos.VariablePlaceholder
-import ch.rmy.android.http_shortcuts.data.models.Variable
 import ch.rmy.android.http_shortcuts.extensions.insertAtCursor
-import ch.rmy.android.http_shortcuts.extensions.toVariablePlaceholder
 import ch.rmy.android.http_shortcuts.variables.VariablePlaceholderProvider
 import ch.rmy.android.http_shortcuts.variables.Variables.BROKEN_RAW_PLACEHOLDER_REGEX
 import ch.rmy.android.http_shortcuts.variables.Variables.RAW_PLACEHOLDER_REGEX
@@ -92,47 +82,49 @@ private fun transformVariablePlaceholders(text: String, placeholders: List<Varia
         offsetSum += lengthDiff
         replacement
     }
-    return TransformedText(buildAnnotatedString {
-        append(transformedText)
-        rangeMappings.forEach { (_, range) ->
-            addStyle(style, range.first, range.last + 1)
-        }
-    }, object : OffsetMapping {
-        override fun originalToTransformed(offset: Int): Int {
-            var shift = 0
-            for ((originalRange, transformedRange) in rangeMappings) {
-                if (offset < originalRange.first) {
-                    break
-                }
-                if (offset == originalRange.first) {
-                    return transformedRange.first
-                }
-                if (offset in originalRange) {
-                    return transformedRange.last + 1
-                }
-                shift = transformedRange.last - originalRange.last
+    return TransformedText(
+        buildAnnotatedString {
+            append(transformedText)
+            rangeMappings.forEach { (_, range) ->
+                addStyle(style, range.first, range.last + 1)
             }
-            return offset + shift
-        }
-
-        override fun transformedToOriginal(offset: Int): Int {
-            var shift = 0
-            for ((originalRange, transformedRange) in rangeMappings) {
-                if (offset < transformedRange.first) {
-                    break
+        },
+        object : OffsetMapping {
+            override fun originalToTransformed(offset: Int): Int {
+                var shift = 0
+                for ((originalRange, transformedRange) in rangeMappings) {
+                    if (offset < originalRange.first) {
+                        break
+                    }
+                    if (offset == originalRange.first) {
+                        return transformedRange.first
+                    }
+                    if (offset in originalRange) {
+                        return transformedRange.last + 1
+                    }
+                    shift = transformedRange.last - originalRange.last
                 }
-                if (offset == transformedRange.first) {
-                    return originalRange.first
-                }
-                if (offset in transformedRange) {
-                    return originalRange.last + 1
-                }
-                shift = originalRange.last - transformedRange.last
+                return offset + shift
             }
-            return offset + shift
-        }
 
-    })
+            override fun transformedToOriginal(offset: Int): Int {
+                var shift = 0
+                for ((originalRange, transformedRange) in rangeMappings) {
+                    if (offset < transformedRange.first) {
+                        break
+                    }
+                    if (offset == transformedRange.first) {
+                        return originalRange.first
+                    }
+                    if (offset in transformedRange) {
+                        return originalRange.last + 1
+                    }
+                    shift = originalRange.last - transformedRange.last
+                }
+                return offset + shift
+            }
+        }
+    )
 }
 
 @Composable
@@ -141,6 +133,7 @@ fun VariablePlaceholderTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE,
 ) {
     val viewModel = viewModel<VariablePlaceholderViewModel>()
@@ -174,7 +167,8 @@ fun VariablePlaceholderTextField(
     TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .focusRequester(focusRequester),
+            .focusRequester(focusRequester)
+            .then(modifier),
         label = label,
         value = textFieldValue,
         onValueChange = { newValue ->
