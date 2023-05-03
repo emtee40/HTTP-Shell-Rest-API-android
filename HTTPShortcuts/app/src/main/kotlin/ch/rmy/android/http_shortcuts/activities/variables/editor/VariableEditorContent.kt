@@ -52,7 +52,6 @@ fun ScreenScope.VariableEditorContent(
 ) {
     Column(
         modifier = Modifier
-            .padding(vertical = Spacing.MEDIUM)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(Spacing.SMALL),
     ) {
@@ -89,38 +88,32 @@ fun ScreenScope.VariableEditorContent(
         SettingsGroup(
             title = { Text(stringResource(R.string.section_advanced_settings)) },
         ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Spacing.SMALL),
-            ) {
+            Checkbox(
+                label = stringResource(R.string.label_url_encode),
+                helpText = stringResource(R.string.message_url_encode_instructions),
+                checked = urlEncodeChecked,
+                onCheckedChange = onUrlEncodeChanged,
+            )
 
+            Checkbox(
+                label = stringResource(R.string.label_json_encode),
+                helpText = stringResource(R.string.message_json_encode_instructions),
+                checked = jsonEncodeChecked,
+                onCheckedChange = onJsonEncodeChanged,
+            )
+
+            Column {
                 Checkbox(
-                    label = stringResource(R.string.label_url_encode),
-                    helpText = stringResource(R.string.message_url_encode_instructions),
-                    checked = urlEncodeChecked,
-                    onCheckedChange = onUrlEncodeChanged,
+                    label = stringResource(R.string.label_allow_share_into),
+                    helpText = stringResource(R.string.message_allow_share_instructions),
+                    checked = allowShareChecked,
+                    onCheckedChange = onAllowShareChanged,
                 )
-
-                Checkbox(
-                    label = stringResource(R.string.label_json_encode),
-                    helpText = stringResource(R.string.message_json_encode_instructions),
-                    checked = jsonEncodeChecked,
-                    onCheckedChange = onJsonEncodeChanged,
-                )
-
-                Column {
-                    Checkbox(
-                        label = stringResource(R.string.label_allow_share_into),
-                        helpText = stringResource(R.string.message_allow_share_instructions),
-                        checked = allowShareChecked,
-                        onCheckedChange = onAllowShareChanged,
+                AnimatedVisibility(visible = shareSupportVisible) {
+                    ShareSupportSelection(
+                        shareSupport = shareSupport,
+                        onShareSupportChanged = onShareSupportChanged,
                     )
-                    AnimatedVisibility(visible = shareSupportVisible) {
-                        ShareSupportSelection(
-                            shareSupport = shareSupport,
-                            onShareSupportChanged = onShareSupportChanged,
-                        )
-                    }
                 }
             }
         }
@@ -224,6 +217,7 @@ private fun ShareSupportSelection(
     onShareSupportChanged: (ShareSupport) -> Unit,
 ) {
     SelectionField(
+        modifier = Modifier.padding(horizontal = Spacing.MEDIUM),
         title = stringResource(R.string.label_share_support),
         selectedKey = shareSupport,
         items = listOf(
