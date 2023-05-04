@@ -12,6 +12,7 @@ import ch.rmy.android.http_shortcuts.activities.variables.editor.types.BaseTypeV
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.ColorTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.ConstantTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.DateTypeViewModel
+import ch.rmy.android.http_shortcuts.activities.variables.editor.types.SliderTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TextTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.TimeTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.VariableTypeViewState
@@ -76,6 +77,7 @@ class VariableEditorViewModel(
             VariableType.PASSWORD,
             VariableType.TEXT,
             -> TextTypeViewModel()
+            VariableType.SLIDER -> SliderTypeViewModel()
             VariableType.TIME -> TimeTypeViewModel()
             else -> null
         }

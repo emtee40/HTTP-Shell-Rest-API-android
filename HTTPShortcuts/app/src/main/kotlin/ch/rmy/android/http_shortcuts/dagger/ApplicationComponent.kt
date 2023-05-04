@@ -44,7 +44,6 @@ import ch.rmy.android.http_shortcuts.activities.variables.VariablesViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.VariableEditorViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.select.SelectTypeFragment
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.select.SelectTypeViewModel
-import ch.rmy.android.http_shortcuts.activities.variables.editor.types.slider.SliderTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.toggle.ToggleTypeFragment
 import ch.rmy.android.http_shortcuts.activities.variables.editor.types.toggle.ToggleTypeViewModel
 import ch.rmy.android.http_shortcuts.activities.widget.WidgetSettingsViewModel
@@ -230,8 +229,6 @@ interface ApplicationComponent {
     fun inject(toggleTypeFragment: ToggleTypeFragment)
 
     fun inject(widgetProvider: WidgetProvider)
-
-    fun inject(sliderTypeViewModel: SliderTypeViewModel)
 
     fun inject(vibrateAction: VibrateAction)
 

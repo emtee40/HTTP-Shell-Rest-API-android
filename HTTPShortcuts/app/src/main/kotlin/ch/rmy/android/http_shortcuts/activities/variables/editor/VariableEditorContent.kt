@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import ch.rmy.android.framework.extensions.consume
 import ch.rmy.android.framework.utils.localization.Localizable
 import ch.rmy.android.http_shortcuts.R
@@ -148,6 +150,10 @@ private fun ScreenScope.VariableKey(
         onValueChange = {
             onKeyChanged(it.take(30))
         },
+        keyboardOptions = KeyboardOptions(
+            autoCorrect = false,
+            capitalization = KeyboardCapitalization.None,
+        ),
         singleLine = true,
         isError = error != null,
         supportingText = error?.let {

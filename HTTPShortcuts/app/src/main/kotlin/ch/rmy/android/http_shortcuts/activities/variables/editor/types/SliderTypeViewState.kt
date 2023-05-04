@@ -1,7 +1,9 @@
-package ch.rmy.android.http_shortcuts.activities.variables.editor.types.slider
+package ch.rmy.android.http_shortcuts.activities.variables.editor.types
 
+import androidx.compose.runtime.Stable
 import ch.rmy.android.http_shortcuts.variables.types.SliderType
 
+@Stable
 data class SliderTypeViewState(
     val minValueText: String,
     val maxValueText: String,
@@ -9,7 +11,7 @@ data class SliderTypeViewState(
     val prefix: String,
     val suffix: String,
     val rememberValue: Boolean,
-) {
+) : VariableTypeViewState {
     val minValue
         get() = minValueText.toDoubleOrNull() ?: SliderType.DEFAULT_MIN
 
